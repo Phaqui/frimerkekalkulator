@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Frimerkekalkulator</title>
+    <script src="code.js"></script>
+    <script src="solutions.min.js" async></script>
+</head>
+<body>
+    <div id="toast"></div>
+    <nav>
+        <h1>Frimerkekalkulator</h1>
+        <div id="activity-icon" class="spinner hidden"></div>
+        <div class="dropdown" id="tools">
+            <div class="dropdown-activator">&#9776;</div>
+            <ul id="menu" class="dropdown-content">
+                <li onclick="show_page('help');">Hjelp</li>
+                <li onclick="show_page('settings');">Innstillinger</li>
+                <li onclick="show_page('about');">Om...</li>
+                <li onclick="hide_menu();">Lukk menyen</li>
+            </ul>
+        </div>
+    </nav>
+
+    <hr />
+
+    <main>
+        <p>Siden lastes...</p>
+    </main>
+
+    <div id="buttons">
+        <span class="blue button deactivated" id="back_btn">Nullstill</span>
+        <span class="button deactivated" id="forward_btn">Finn kombinasjoner</span>
+    </div>
+
+    <template data-pagename="about">
+        <div id="about">
+            <p>Dette er en uoffesiell tjeneste, ikke assosiert med - eller drevet av Posten Norge.</p>
+            <p>(c) 2020 Anders Lorentsen<br>&lt;anders.lorentsen@gmail.com&gt;</p>
+            <p>&nbsp;</p>
+            <p>Frontend: vanilla js</p>
+            <p>Backend: Python, FastAPI på uvicorn med gunicorn som manager<br>
+            weasyprint for pdf</p>
+            <p>Hosted på Google App Engine</p>
+        </div>
+    </template>
+
+    <template data-pagename="stamps">
+        <h3>Jeg har frimerker av følgende valører...</h3>
+        <div id="stamps">
+            <span class="number-box">&#x2795;</span>
+        </div>
+    </template>
+
+    <template data-pagename="prices">
+        <h3>Jeg ønsker å finne kombinasjoner for følgende priser...</h3>
+        <div id="prices">
+            <span class="number-box">&#x2795;</span>
+        </div>
+    </template>
+
+    <template data-pagename="results">
+        <div>
+            <h3>Resultater</h3>
+            <p>Velg resultater du vil ha med i pdf-en.</p>
+        </div>
+        <div id="result-area"></div>
+    </template>
+
+    <template data-pagename="settings">
+        <div id="settings-container">
+            <h3>Innstillinger</h3>
+            <span onclick="reset_saved_stamps();" class="button">Nullstill frimerker</span>
+        </div>
+    </template>
+
+    <template data-pagename="help">
+        <div id="help-container">
+            <h3>Hjelp</h3>
+            <p>Frimerker som legges til, vises i brun farge. For å nullstille
+            frimerkelisten tilbake til utgangspunktet, brukes knappen som finnes
+            i 'innstillinger'-menyen.</p>
+            <p>Ris, ros, og andre tilbakemeldinger sendes til <br>
+            &lt;anders.lorentsen@gmail.com&gt;</p>
+        </div>
+    </template>
+</body>
+</html>

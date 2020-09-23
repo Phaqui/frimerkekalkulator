@@ -1,0 +1,4 @@
+#this is the app.yaml file for the pdf generator service
+service: pdfgen
+runtime: python37
+entrypoint: gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker -b :$PORT

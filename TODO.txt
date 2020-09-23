@@ -1,0 +1,81 @@
+  Categories:
+    UI - UI changes
+    MI - Miscellaneous changes, that for some reason do not fit in any category
+    CO - "Code" changes - for the most part, this refers to backend-code, but could
+         also include tasks that will require more complex code in the js
+    IF - Infrastructure changes. Related to the hosting (now for the most part GAE)
+  Approx time:
+    ti = tiny change, minutes to maybe an hour
+    mi = minor change, a few hours, to half a day
+    ma = major change, which will require some time
+    Additionally, there may be a "-", "+", or "?" postfix to the approx times.
+    In order of time approx: ti- ti ti+ mi- mi mi+ ma- ma ma+
+  Severity and other tags
+    IMP = Irregardless of priority, this is crucial to functionality, or for some other reason must be done quickly
+  Priorities:
+    P0 - Highest priority
+    P1 - Could be done at some point..
+    PZ - May not even bother coming around to these
+    
+
+==- TODOs: -======
+
+(P0, CO, ti+) - Catch and handle network errors and 500s from apis. Retry or fail?
+(P0, CO, mi) - When clicking for a new search while waiting for results, stop current requests (needs research)
+(P0, UI, ma-) - Better styling of equation lines, so it is more obvious what is the stamp. Both on web and pdf.
+(P0, UI, ma) - Options menu on generating the PDF. Font-size, etc...? Try to squeeze on one side?
+   - note: PDF readers (acrobat, chrome, whatever) can resize to print on two sides, so no need to do that.
+
+(P1, UI, mi?) - Animations. Fade prices/stamps to top when searching, etc.
+(P1, CO, ma?) - Calc service: Find a better algorithm!
+(P1, CO, ma) - Calc service: Implement client side. JS, or as webassembly (or both?)
+(P1, CO, ma+) - Calc service: General optimization desired. Use memcache? Rewrite (C, Rust, Go, whatev)? Try PyPy?
+
+(PZ, CO, UI, ma?) - Browser support. Chrome/Firefox and probably Safair ok now. Do I need Edge and IE support?
+(PZ, MI, mi) - Put source on hosting. Private gitea? Public? Github? Gitea?
+(PZ, UI, ma-) - When selecting many stamps, have the ability to say that you only want to use so and so
+                many stamps in the result set, even if you have many stamps selected?
+(PZ, CO, ma)  - Limit the number of prices we can search for at once? Should autoscale... but may appear slow.
+(PZ, IF, ma+) - First requests takes a while. Maybe instance has to be started.
+                Find a way to have them always running, to reduce the delay on these simple/small/first calls?
+                May have to go for something else than GAE. Or: Flex environment.. Needs research.
+(PZ, CO, ma) - Pdf generation directly in javascript.
+
+
+
+
+
+
+
+Previously done (from most recently done):
+
+
+- Ability to save (or if autosave, restore) custom stamps/prices
+   + progress: added stamps are saved automatically. Reset button in settings.
+- Make it look pretty and functional on pads and phones
+   + progress: Basically done, but needs lots of testing and tweaks.
+- Pre-calculate lots of results, and bundle it with js code. ~0.5-1MB json file downloaded in the background?
+   + progress: for the set of stamps that we have now in the code, a 'solutions.json.js' file (~400kb) is downloaded
+               and searched for results before we call the API. Provides lots of faster results!
+- More stamps by default
+   + progress: some added. It is so fast to add more later, that I'll just mark this as complete now
+- Activity icon: An activity icon will appear in the navbar when we are waiting for some api call.
+- Custom page: "About". With info about me and technologies.
+   + progress: Just shows one line, for now. Whatever.
+- Tools popup. If any tools or menus which are discussed in other posts are required,
+      I will need it. Save/change custom stamps/prices. Change/reset layout of stamps/prices?
+   + progress: Created rudimentary dropdown menu. For now, can click to see about page, and click on main header to get back
+- Custom stamps/color in different color?
+- Ability to add more stamps and prices manually. Separate color from the rest?
+   + progress: Can now add stamps and prices manually. Will be inserted in sorted order.
+               The new ones will go away on refresh. Values cannot be deleted in any other way.
+   + notes: The new custom values added does not have a different color.
+   + notes: Different TODO item added for colors and save/restore.
+- "WorkInProgress popup". When clicking on the pdf-create-button, it sometimes takes
+       a while without any visual feedback. After 2-4 sec (~2.5?) pop up a small notice
+       in the center of the screen about waiting for the server.
+- Waiting spinners. Find a place to put "waiting spinners" on all elements
+       related to loading stuff from the api. Small inline spinner on the combinations
+       instead of the "waiting for results", and a small spinner on the pdfcreation button.
+   + progress: "waiting for results"-text is now replaced by spinners.
+   + progress: pdfmake-button now has custom loader animation thingy, and also separate state after complete.

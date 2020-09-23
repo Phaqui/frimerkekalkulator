@@ -1,0 +1,30 @@
+Frimerkekalkulator
+
+Live (1): http://posten-frimerkekalkulator.appspot.com
+
+
+Hva er dette?
+
+En google app engine webapp som regner ut hvordan man kan kombinere
+frimerker av ulike valører til å oppnå en gitt pris. Man kan velge
+flere priser samtidig, og få webappen til å generere en utskriftbar
+versjon av kombinasjonene.
+
+Appen var et resultat av å jobbe i Post i Butikk, hvor man i en tid
+før etikettskriver og frimerkekoder måtte bruke vanlige frimerker av
+ulike valører for å oppnå riktig porto på ei brevsending.
+
+Selv om appen ble laget en tid etter etikettskriver og frimerkekoder,
+kan den allikevel fortsatt potensiellt være nyttig, og det teoretiske
+problemet (2) er også interessant i seg selv, i tillegg til å være
+et primeksempel på hva webassembly kan være nyttig for.
+
+
+(1): Usikker på om versjonen som ligger oppe er fullstendig identisk med
+koden her, men store forskjeller er det ikke.
+
+(2): Det matematiske problemet som løses her, kalles av matematikere for
+diofantiske ligninger (se f.eks engelsk wikipedia om "Diophantine equations").
+
+Historikk:
+prosjektet startet: 10. februar 2020

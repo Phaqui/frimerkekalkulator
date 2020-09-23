@@ -1,0 +1,9 @@
+#this is the dispatch file, it goes in the root
+
+dispatch:
+    - url: "*/api/calc/*"
+      service: calc
+#    - url: api/pdfgen
+#      service: pdfgen
+    - url: "posten-frimerkekalkulator.appspot.com/"
+      service: default

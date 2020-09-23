@@ -1,0 +1,631 @@
+html, body {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+body {
+    background-color: rgb(251, 241, 240);
+    min-height: calc(100vh - 20px);
+    display: flex;
+    flex-direction: column;
+    padding: 0 10% 0 10%;
+}
+
+@media screen and (max-width: 450px) {
+    html, body { margin: 0; }
+    body {
+        padding: 0;
+        height: 100vh;
+        /* min-height: 90vh; */
+        /* max-height: 90vh; */
+    }
+}
+
+/* Using h3 as the "big text" element */
+h3 {
+    /* Seems to have a big margin by default, so just remove it */
+    margin: 0;
+
+    /* To make the text centered, vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /* And some okay-looking font.. */
+    font-family: Palatino;
+    font-size: 26px;
+    letter-spacing: 2px;
+    word-spacing: 1.7px;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 450px) {
+    h3 { text-align: center; font-size: 16px; }
+}
+
+
+
+
+
+
+
+/* NAV and header*/
+
+nav {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-areas: 'text activity menu';
+}
+@media screen and (max-width: 450px) {
+    nav {
+        /* position: fixed; top: 0; left: 0; */
+        width: 100vw;
+        grid-template-areas: 'menu text activity';
+    }
+}
+
+nav > h1 {
+    grid-area: text;
+    cursor: pointer;
+    color: rgb(174, 26, 26);
+}
+@media screen and (max-width: 450px) {
+    nav > h1 {
+        align-self: center;
+        justify-self: center;
+    }
+}
+
+nav > #activity-icon {
+    grid-area: activity;
+    justify-self: end;
+}
+nav > #activity-icon.hidden {
+    visibility: hidden;
+}
+
+@media screen and (max-width: 450px) {
+    nav > #activity-icon {
+        align-self: center;
+        justify-self: center;
+    }
+}
+
+#tools {
+    grid-area: menu;
+    display: flex;
+    justify-self: end;
+
+    /* just using the unicode symbol, for now. not even sure I need a "menu" */
+    font-size: 52px;
+    font-weight: normal;
+
+    /* To make it appear clickable */
+    cursor: pointer;
+}
+@media screen and (max-width: 450px) {
+    #tools {
+        align-self: center;
+        justify-self: center;
+    }
+}
+
+/* the hr */
+body > hr {
+    width: 100vw;
+    border: 0;
+    height: 1px;
+    background-image:
+        linear-gradient(to right, rgba(0,0,0,0), rgba(174,26,26,1));
+    display: block;
+}
+
+
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 450px) {
+    main {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}
+
+main > div {
+    flex: 1;
+}
+
+#prices, #stamps {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(11, 1fr);
+}
+
+@media screen and (max-width: 450px) {
+    #prices, #stamps {
+        align-content: start;
+        grid-gap: 2px;
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+
+#about {
+    text-align: center;
+}
+
+
+
+#settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* DROPDOWN MENU */
+.dropdown {
+}
+
+.dropdown > ul.dropdown-content {
+    position: absolute;
+    display: none;
+    opacity: 0;
+    transition: all 0.5s ease;
+    list-style: none;
+}
+.dropdown:hover > ul.dropdown-content {
+    display: block;
+    opacity: 1;
+}
+@media screen and (max-width: 450px) {
+    /* on small screens (mobile), the menu is full height, sliding in from the
+     * left, when the user clicks (taps) the menu icon */
+    .dropdown > ul.dropdown-content {
+        background-color: red;
+        position: fixed;
+        left: -60%;
+        top: 0;
+        width: 60%;
+        height: 90vh;
+        overflow-x: hidden;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    ul.dropdown-content.open {
+        display: flex;
+        opacity: 1;
+        z-index: 1;
+        left: 0;
+        transition: left 0.7s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+}
+
+/* styling for each item in the menu */
+.dropdown > ul > li {
+    cursor: pointer;
+    position: relative;
+
+    /* font-size very large because we inherit from the tools icon, so adjust */
+    font-size: 18px;
+    text-decoration: none;
+    padding: 20px 36px;
+    box-shadow: 0 8px 16px 0px rgba(0,0,0,0.3);
+    background-color: #f9f9f9;
+}
+
+@media screen and (max-width: 450px) {
+    .dropdown > ul.dropdown-content > li {
+        flex: 1;
+    }
+    .dropdown > ul.dropdown-content > li:first-child {
+        flex: 2;
+    }
+    .dropdown > ul.dropdown-content > li:last-child {
+        justify-self: flex-end;
+    }
+}
+
+/* Add a gray background on dropdown item hover */
+ul.dropdown-content > li:hover {
+    background-color: rgb(166, 177, 204);
+    transition: all 0.5s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* SPINNER (from w3schools) */
+div.spinner {
+    display: inline-block;
+    border: 6px solid rgb(85, 85, 85);
+    border-top: 6px solid rgb(67, 147, 179);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1.5s linear infinite;
+}
+/* FUN! :D
+div.spinner:before {
+    content: '\1F604';
+}*/
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+span.spinner.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+/* BUTTONS */
+
+#buttons {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-around;
+}
+@media screen and (max-width: 450px) {
+    #buttons {
+        /*
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        */
+        width: 100vw;
+        height: 10vh;
+    }
+}
+
+span.button {
+    /* Centers the text on the box in the center, horizontally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    /* Some font styling */
+    color: black;
+    font-family: Palatino;
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-weight: normal;
+    font-variant: small-caps;
+
+    width: 250px;
+    padding: 14px 28px;
+    background-color: rgb(227, 76, 76);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* on small screens, the buttons are fixed to the buttons, not rounded corners,
+ * and take up the entire width of the screen */
+@media screen and (max-width: 450px) {
+    span.button {
+        border-radius: 0;
+        width: 50%;
+    }
+}
+span.button:hover {
+    background-color: rgb(234, 30, 30);
+    border: 1px solid rgb(130, 130, 130);
+}
+
+/* buttons should be sort of "grayed-out" when not active */
+span.button.deactivated {
+    cursor: default;
+    background-color: rgb(227, 174, 174);
+    color: rgb(75, 75, 75);
+}
+span.button.deactivated:hover {
+    background-color: rgb(227, 174, 174);
+    border: none;
+}
+
+span.button.clicked {
+    display: inline-block;
+    filter: grayscale(35%);
+}
+
+span.button.blue {
+    background-color: rgb(65, 138, 230);
+}
+
+span.button.blue.deactivated {
+    background-color: rgb(176, 187, 230);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* NUMBER BOX */
+
+span.number-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6em;
+    color: rgb(35, 35, 35);
+    height: 75px;
+    width: 75px;
+    background-color: rgb(129, 170, 174);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+@media screen and (max-width: 450px) {
+    span.number-box {
+        height: calc(100vw / 5 - 3px);
+        width: calc(100vw / 5 - 3px);
+    }
+}
+
+/* the first number box is special: it's the one where we can add more */
+span.number-box:first-child {
+    background-color: rgb(79, 147, 181);
+}
+
+/* XXX for the ones in the result list */
+span.number-box-small {
+    padding: 0px 5px;
+    background-color: rgb(150, 150, 50);
+    font-size: 1.7em;
+    color: red;
+}
+
+span.number-box:hover {
+    background-color: red;
+}
+
+/* .user-added must come before .selected in the source,
+ * because number-boxes can have both, and in that case the
+ * .selected should take priority. Encode that priority by having
+ * the rule for .selected written after the rule for .user-added,
+ * so the property will be "overwritten" */
+span.number-box.user-added {
+    background-color: rgb(172, 151, 123);
+}
+
+span.number-box.selected {
+    color: rgb(15, 15, 15);
+    background-color: rgb(240, 75, 75);
+}
+
+span.number-box > input[type=tel] {
+    padding: 6px;
+    background-color: rgb(192, 211, 255);
+    border: 1px solid rgba(255, 0, 0, 0.45);
+    border-radius: 3px;
+    width: 2em;
+    height: 2em;
+    font-size: 0.8em;
+}
+
+span.number-box > input[type=tel]:invalid {
+    background-color: rgb(245, 90, 90);
+}
+
+
+
+
+
+
+
+
+
+/* TOAST */
+/* a small message that pops up for a short duration */
+
+#toast {
+    visibility: hidden;
+    min-width: 360px;
+    background-color: rgb(70, 76, 164);
+    transform: translateX(-50%);
+    color: rgb(240, 233, 233);
+    font-size: 1.5em;
+    text-align: center;
+    border-radius: 8px;
+    padding: 22px;
+    position: fixed;
+    left: 50%;
+    bottom: 50%;
+}
+#toast.show {
+    visibility: visible;
+    /* XXX just use transition instead, simpler code */
+    /* I assume performance is same or difference is negligible */
+    animation: fadein 0.75s, fadeout 0.75s 4s;
+}
+@keyframes fadein {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 50%; opacity: 1; }
+}
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+
+
+
+
+
+/* RESULT AREA */
+#result-container.hidden {
+    visibility: hidden;
+}
+/*#result-area.hidden {
+    display: none;
+}*/
+
+div#result-area {
+    display: flex;
+    flex-direction: column;
+
+    /* XXX adding fade-up and fade-down effects when I go for search */
+    transition: max-height 0.4s ease;
+}
+
+div#result-area > section {
+    flex: 1;
+}
+
+
+#result-area > section > p {
+    margin-top: 4px;
+    margin-left: 3em;
+    font-size: 1.4em;
+    font-family: sans-serif;
+    letter-spacing: 3px;
+    word-spacing: 4px;
+}
+@media screen and (max-width: 450px) {
+    #result-area > section > p {
+        font-size: 1.2em;
+        letter-spacing: 2px;
+        word-spacing: 3px;
+    }
+}
+#result-area > section > p.loading {
+    display: inline-block;
+}
+#result-area > section > p:first-child {
+    margin-left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DOT LOADER */
+/* and the accompanying loader icon, courtesy codepen.io/rramphal/pen/gpjXNy */
+span.dot-loader {
+    display: inline-block;
+    height: 10px;
+    width: 45px;
+}
+span.dot-loader > span {
+    display: inline-block;
+    height: 10px; width: 10px;
+    border-radius: 50%;
+    margin 0px 2px;
+    background-color: rgba(9, 24, 232, 0.9);
+    animation: fadeOutIn 500ms infinite alternate;
+    /*
+    animation-name: fadeOutIn;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    */
+}
+span.dot-loader > span:nth-child(1) { animation-delay: 250ms; }
+span.dot-loader > span:nth-child(2) { animation-delay: 500ms; }
+span.dot-loader > span:nth-child(3) { animation-delay: 750ms; }
+@keyframes fadeOutIn {
+    0% { background-color: rgba(9, 24, 232, 0.9); }
+    100% { background-color: rgba(9, 24, 232, 0.1); }
+}
+
+
+
+
+
+
+
+
+
+
+/* CHECKBOX */
+
+/* styling for checkboxes a mix of http://css-tricks.com/the-checkbox-hack/
+ * and w3 schools custom checkbox */
+
+input[type="checkbox"]:not(:checked),
+input[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+}
+input[type="checkbox"]:not(:checked) + label,
+input[type="checkbox"]:checked + label {
+    position: relative;
+    padding-left: 2em;
+    cursor: pointer;
+}
+input[type="checkbox"]:not(:checked) + label:before,
+input[type="checkbox"]:checked + label:before {
+    border: 2px solid rgb(67, 147, 179);
+    border-radius: 2px;
+    content: '';
+    position: absolute; left: 0; top: 0; width: 1.5em; height: 1.35em;
+    background-color: rgb(67, 147, 179);
+}
+input[type="checkbox"]:not(:checked) + label:after,
+input[type="checkbox"]:checked + label:after {
+    content: '\2713\0020';
+    position: absolute; top: .15em; left: .22em;
+    font-size: 1.5em;
+    line-height: 0.8;
+    color: rgb(128, 20, 20);
+    transition: all .2s;
+}
+input[type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+}
+input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* disabled checkbox styles */
+input[type="checkbox"]:disabled + label:before {
+    background-color: rgb(185, 190, 196);
+    border-color: rgb(185, 190, 196);
+}

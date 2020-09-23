@@ -1,0 +1,5 @@
+jinja2
+weasyprint
+fastapi
+uvicorn
+gunicorn

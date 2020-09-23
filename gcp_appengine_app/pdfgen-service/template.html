@@ -1,0 +1,44 @@
+<html>
+<head>
+<style>
+@page {
+    @bottom-left {
+        color: rgb(30, 30, 80);
+        content: 'Side ' counter(page) ' av ' counter(pages);
+    }
+    @bottom-right {
+        color: rgb(30, 30, 80);
+        content: 'posten-frimerkekalkulator.appspot.com';
+    }
+}
+html, body { margin: 0; }
+hr.header { border: 0; height: 0.2mm; background-color: rgb(174, 26, 26); }
+h3 { font-size: 17pt; }
+p {
+    color: rgb(20, 20, 20);
+    margin-left: 5mm;
+    margin-top: 2.5mm;
+    margin-bottom: 2.5mm;
+    font-size: 15pt;
+    letter-spacing: 0.5mm;
+    word-spacing: 1mm;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Frimerkekombinasjoner</h1>
+        <hr class="header">
+    </header>
+    <main>
+        {% for f in data.prices %}
+            {% if f.lines %}
+                <h3>{{ f.price }}:</h3>
+                {% for line in f.lines %}
+                    <p>{{ line }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </main>
+</body>
+</html>
